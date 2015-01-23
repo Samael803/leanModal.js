@@ -7,10 +7,20 @@
             var defaults = {
                 top: 100,
                 overlay: 0.5,
-                closeButton: null
+                closeButton: null,
+                closeOnBlur: true
             }
             
-            var overlay = $("<div id='lean_overlay'></div>");
+            var overlay = $("<div id='lean_overlay'></div>").css({
+                'position': 'fixed',
+                'z-index': '100',
+                'top': '0px',
+                'left': '0px',
+                'height': '100%',
+                'width': '100%',
+                'background': '#000',
+                'display': 'none'
+            });
             
             $("body").append(overlay);
                  
@@ -24,9 +34,13 @@
               
               	var modal_id = $(this).attr("href");
 
-				$("#lean_overlay").click(function() { 
-                     close_modal(modal_id);                    
-                });
+                // If there is no close button, we discard the "closeOnblur" setting,
+                // or otherwise it will be impossible to close the overlay.
+                if (o.closeOnBlur || !o.closeButton) {
+                    overlay.click(function() { 
+                         close_modal(modal_id);                    
+                    });
+                }
                 
                 $(o.closeButton).click(function() { 
                      close_modal(modal_id);                    
@@ -35,9 +49,9 @@
               	var modal_height = $(modal_id).outerHeight();
         	  	var modal_width = $(modal_id).outerWidth();
 
-        		$('#lean_overlay').css({ 'display' : 'block', opacity : 0 });
+        		overlay.css({ 'display' : 'block', opacity : 0 });
 
-        		$('#lean_overlay').fadeTo(200,o.overlay);
+        		overlay.fadeTo(200,o.overlay);
 
         		$(modal_id).css({ 
         		
@@ -61,7 +75,7 @@
 
 			function close_modal(modal_id){
 
-        		$("#lean_overlay").fadeOut(200);
+        		overlay.fadeOut(200);
 
         		$(modal_id).css({ 'display' : 'none' });
 			
