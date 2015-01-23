@@ -56,7 +56,7 @@
         		$(modal_id).css({ 
         		
         			'display' : 'block',
-        			'position' : 'fixed',
+        			'position' : 'absolute',
         			'opacity' : 0,
         			'z-index': 11000,
         			'left' : 50 + '%',
