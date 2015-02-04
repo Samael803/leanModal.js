@@ -61,7 +61,7 @@
         			'z-index': 11000,
         			'left' : 50 + '%',
         			'margin-left' : -(modal_width/2) + "px",
-        			'top' : o.top + "px"
+        			'top' : o.top
         		
         		});
 
